@@ -8,6 +8,8 @@ if (!$currentUser || $currentUser->role != "admin") {
 }
 $service = new Service();
 $service->create_service();
+$workinf_hours = new WorkingHours();
+$workinf_hours->create_working_hours();
 $staffs = Staff::find_all();
 ?>
 

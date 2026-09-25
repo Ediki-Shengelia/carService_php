@@ -102,4 +102,5 @@ class Service extends Db_object
         $result = self::find_by_query($sql, [":service" => $service]);
         return !empty($result) ? array_shift($result) : false;
     }
+    
 }
