@@ -49,4 +49,10 @@ class BookingService extends Db_object
     public $status;
 
     public $completed_at;
+    public static function getUserBookedServices($user_id)
+    {
+        $sql = "SELECT * FROM " . self::$db_name  . " WHERE user_id=:user_id";
+        $result = self::find_by_query($sql, [":user_id" => $user_id]);
+        return $result ? $result : [];
+    }
 }

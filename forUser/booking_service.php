@@ -26,11 +26,18 @@ if (isPostRequest()) {
         $bookingService->start_time = $time;
         $staff_status->progress = "in_progress";
         $staff_status->update();
+
         // !FOr service time 
         $service_time = Service::find_by_id($service_id);
-        $bookingService->end_time = date("H:i:s", strtotime("+{$service_time->duration_value} {$service_time->duration_unit}"));
+
+        // Build a base timestamp from the selected start_time (today's date + chosen time)
+        $start_datetime = date("Y-m-d") . " " . $time;
+        $start_timestamp = strtotime($start_datetime);
+
+        $bookingService->end_time = date("H:i:s", strtotime("+{$service_time->duration_value} {$service_time->duration_unit}", $start_timestamp));
         $bookingService->status = "confirmed";
-        $bookingService->completed_at =  date("Y-m-d H:i:s", strtotime("+{$service_time->duration_value} {$service_time->duration_unit}"));;
+        $bookingService->completed_at = date("Y-m-d H:i:s", strtotime("+{$service_time->duration_value} {$service_time->duration_unit}", $start_timestamp));
+
         if ($bookingService->create()) {
             $message = "Service Booked";
         }
