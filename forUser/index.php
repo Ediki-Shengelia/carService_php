@@ -1,6 +1,9 @@
 <?php
 
 require_once __DIR__ . '/partials/header.php';
+if (User::find_by_id($session->getUserId())->role == "employee") {
+    Redirect("../forMembers/index.php");
+}
 $bookedServices = BookingService::getUserBookedServices($session->getUserId());
 
 $date_now = date("Y-m-d H:i:s");

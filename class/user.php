@@ -31,14 +31,14 @@ class User extends Db_object
         $this->password = password_hash($this->password, PASSWORD_BCRYPT);
         return parent::create();
     }
-    #[Override]
-    public function update()
-    {
-        if (!empty($this->password)) {
-            $this->password = password_hash($this->password, PASSWORD_BCRYPT);
-        }
-        return parent::update();
-    }
+    // #[Override]
+    // public function update()
+    // {
+    //     if (!empty($this->password)) {
+    //         $this->password = password_hash($this->password, PASSWORD_BCRYPT);
+    //     }
+    //     return parent::update();
+    // }
     public static function verify_user($email, $password)
     {
         $sql = "SELECT * FROM " . self::$db_name . " WHERE email=:email LIMIT 1";

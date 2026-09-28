@@ -3,8 +3,12 @@
 require_once __DIR__ . '/partials/header.php';
 
 $currentUser = User::find_by_id($session->getUserId());
-if (!$currentUser || $currentUser->role != "admin") {
+
+
+if ($currentUser->role === "user") {
     Redirect("../forUser/index.php");
+} elseif ($currentUser->role === "employee") {
+    Redirect("../forMembers/index.php");
 }
 $service = new Service();
 $service->create_service();

@@ -55,4 +55,10 @@ class BookingService extends Db_object
         $result = self::find_by_query($sql, [":user_id" => $user_id]);
         return $result ? $result : [];
     }
+    public static function getAllTasksForMembers($staff_id)
+    {
+        $sql = "SELECT * FROM " . self::$db_name . " WHERE staff_id=:staff_id";
+        $result = self::find_by_query($sql, [':staff_id' => (int)$staff_id]);
+        return $result ?: [];
+    }
 }
